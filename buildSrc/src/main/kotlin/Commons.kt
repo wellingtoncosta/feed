@@ -45,7 +45,7 @@ object Versions {
     internal const val fuel = "2.1.0"
     internal const val junit = "4.12"
     internal const val koin = "2.0.1"
-    internal const val kotlinStdLib = "1.3.40"
+    internal const val kotlinStdLib = "1.3.41"
     internal const val kotlinCoroutines = "1.2.2"
     internal const val kotlinSerialization = "0.11.1"
     internal const val leakCanary = "2.0-alpha-3"
