@@ -4,6 +4,10 @@ import Dependencies.androidCore
 import Dependencies.androidCoreTesting
 import Dependencies.androidDataBindingCompiler
 import Dependencies.androidLiveData
+import Dependencies.androidTestEspressoCore
+import Dependencies.androidTestExtJunit
+import Dependencies.androidTestRules
+import Dependencies.androidTestRunner
 import Dependencies.androidViewModel
 import Dependencies.fuelCore
 import Dependencies.fuelCoroutines
@@ -29,14 +33,15 @@ plugins {
 }
 
 android {
-    compileSdkVersion(28)
+    compileSdkVersion(29)
 
     defaultConfig {
         applicationId = "io.github.wellingtoncosta.feed"
         minSdkVersion(16)
-        targetSdkVersion(28)
+        targetSdkVersion(29)
         versionCode = 1
         versionName = "1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -121,10 +126,15 @@ dependencies {
     debugImplementation(leakCanary)
 
     // Tests
-    testImplementation(androidCoreTesting)
     testImplementation(junit)
     testImplementation(mockk)
+    testImplementation(androidCoreTesting)
     testImplementation(kotlinCoroutinesTest)
+
+    androidTestImplementation(androidTestRules)
+    androidTestImplementation(androidTestRunner)
+    androidTestImplementation(androidTestExtJunit)
+    androidTestImplementation(androidTestEspressoCore)
 
     // Timber
     implementation(timber)
