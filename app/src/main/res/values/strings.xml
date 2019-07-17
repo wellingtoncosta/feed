@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Feed</string>
+    <string name="load_posts_error">Couldn\'t load posts.</string>
+    <string name="no_posts">There are no posts available</string>
 </resources>
