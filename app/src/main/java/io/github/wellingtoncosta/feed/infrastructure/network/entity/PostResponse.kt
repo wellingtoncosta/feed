@@ -12,7 +12,7 @@ import kotlinx.serialization.Serializable
     val body: String
 )
 
-fun PostResponse.toDomain(user: User?) = Post(
+fun PostResponse.toDomain(user: User) = Post(
     id = id,
     title = title,
     user = user,
@@ -20,7 +20,7 @@ fun PostResponse.toDomain(user: User?) = Post(
     comments = mutableListOf()
 )
 
-fun PostResponse.toDomain(user: User?, comments: List<Comment>) = Post(
+fun PostResponse.toDomain(user: User, comments: List<Comment>) = Post(
     id = id,
     title = title,
     user = user,

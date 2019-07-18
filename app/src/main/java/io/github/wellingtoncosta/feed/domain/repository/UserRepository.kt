@@ -4,6 +4,6 @@ import io.github.wellingtoncosta.feed.domain.entity.User
 
 interface UserRepository {
 
-    suspend fun getUserById(userId: Long): User?
+    suspend fun getUserById(userId: Long): User
 
 }

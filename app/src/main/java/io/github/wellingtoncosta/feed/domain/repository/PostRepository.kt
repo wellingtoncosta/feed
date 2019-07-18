@@ -6,6 +6,6 @@ interface PostRepository {
 
     suspend fun getAllPosts(): List<Post>
 
-    suspend fun getPostById(postId: Long): Post?
+    suspend fun getPostById(postId: Long): Post
 
 }

@@ -1,5 +1,6 @@
 package io.github.wellingtoncosta.feed.infrastructure.repository
 
+import io.github.wellingtoncosta.feed.domain.exception.PostNotFoundException
 import io.github.wellingtoncosta.feed.domain.repository.PostRepository
 import io.github.wellingtoncosta.feed.domain.repository.UserRepository
 import io.github.wellingtoncosta.feed.infrastructure.extension.asyncMap
@@ -33,7 +34,7 @@ class PostRepositoryImpl(
             }
 
             response.toDomain(user.await(), comments.await())
-        }
+        } ?: throw PostNotFoundException()
     }
 
 }
