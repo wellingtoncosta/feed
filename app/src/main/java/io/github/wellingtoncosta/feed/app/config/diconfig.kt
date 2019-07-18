@@ -5,6 +5,8 @@ import io.github.wellingtoncosta.feed.domain.interactor.PostInteractor
 import io.github.wellingtoncosta.feed.domain.interactor.implementation.PostInteractorImpl
 import io.github.wellingtoncosta.feed.domain.repository.PostRepository
 import io.github.wellingtoncosta.feed.domain.repository.UserRepository
+import io.github.wellingtoncosta.feed.infrastructure.cache.UserCache
+import io.github.wellingtoncosta.feed.infrastructure.cache.memory.UserMemoryCache
 import io.github.wellingtoncosta.feed.infrastructure.network.api.CommentApi
 import io.github.wellingtoncosta.feed.infrastructure.network.api.PostApi
 import io.github.wellingtoncosta.feed.infrastructure.network.api.UserApi
@@ -26,8 +28,12 @@ val networkModule = module {
     single<UserApi> { UserFuelApi(json = get()) }
 }
 
+val cacheModule = module {
+    single<UserCache> { UserMemoryCache() }
+}
+
 val repositoryModule = module {
-    single<UserRepository> { UserRepositoryImp(get()) }
+    single<UserRepository> { UserRepositoryImp(get(), get()) }
     single<PostRepository> { PostRepositoryImpl(get(), get(), get()) }
 }
 
