@@ -54,7 +54,7 @@ object Versions {
     internal const val junit = "4.12"
     internal const val koin = "2.0.1"
     internal const val kotlinStdLib = "1.3.41"
-    internal const val kotlinCoroutines = "1.2.2"
+    internal const val kotlinCoroutines = "1.3.0-RC"
     internal const val kotlinSerialization = "0.11.1"
     internal const val leakCanary = "2.0-alpha-3"
     internal const val materialDesign = "1.0.0"
