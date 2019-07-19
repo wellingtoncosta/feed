@@ -21,7 +21,7 @@ object Dependencies {
     const val koinAndroidScope = "org.koin:koin-androidx-scope:${Versions.koin}"
     const val koinAndroidViewModel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
 
-    const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlinStdLib}"
+    const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlinStdLib}"
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinStdLib}"
     const val kotlinCoroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinCoroutines}"
     const val kotlinCoroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutines}"
@@ -34,6 +34,8 @@ object Dependencies {
     const val materialDesign = "com.google.android.material:material:${Versions.materialDesign}"
 
     const val mockk = "io.mockk:mockk:${Versions.mockk}"
+
+    const val okhttpMockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.okhttpMockWebServer}"
 
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
 }
@@ -59,5 +61,6 @@ object Versions {
     internal const val leakCanary = "2.0-alpha-3"
     internal const val materialDesign = "1.0.0"
     internal const val mockk = "1.9.3"
+    internal const val okhttpMockWebServer = "4.0.1"
     internal const val timber = "4.7.1"
 }

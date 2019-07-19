@@ -23,6 +23,7 @@ import Dependencies.kotlinStdLib
 import Dependencies.leakCanary
 import Dependencies.materialDesign
 import Dependencies.mockk
+import Dependencies.okhttpMockWebServer
 import Dependencies.timber
 
 plugins {
@@ -86,8 +87,8 @@ android {
     }
 
     compileOptions {
-        targetCompatibility = JavaVersion.VERSION_1_7
-        sourceCompatibility = JavaVersion.VERSION_1_7
+        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
     }
 }
 
@@ -129,6 +130,7 @@ dependencies {
     testImplementation(junit)
     testImplementation(mockk)
     testImplementation(androidCoreTesting)
+    testImplementation(okhttpMockWebServer)
     testImplementation(kotlinCoroutinesTest)
 
     androidTestImplementation(androidTestRules)
