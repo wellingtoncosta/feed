@@ -3,7 +3,6 @@ package io.github.wellingtoncosta.feed.infrastructure.repository
 import io.github.wellingtoncosta.feed.domain.exception.PostNotFoundException
 import io.github.wellingtoncosta.feed.domain.repository.PostRepository
 import io.github.wellingtoncosta.feed.domain.repository.UserRepository
-import io.github.wellingtoncosta.feed.infrastructure.extension.asyncMap
 import io.github.wellingtoncosta.feed.infrastructure.network.api.CommentApi
 import io.github.wellingtoncosta.feed.infrastructure.network.api.PostApi
 import io.github.wellingtoncosta.feed.infrastructure.network.entity.toDomain
@@ -19,8 +18,7 @@ class PostRepositoryImpl(
 
     override suspend fun getAllPosts() = withContext(IO) {
         postApi.getAllPosts()
-            .asyncMap { it.toDomain(userRepository.getUserById(it.userId)) }
-            .sortedByDescending { it.id }
+            .map { it.toDomain(userRepository.getUserById(it.userId)) }
     }
 
     override suspend fun getPostById(postId: Long) = withContext(IO) {
