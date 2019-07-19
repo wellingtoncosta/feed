@@ -23,7 +23,7 @@ class ListPostsViewModel(
         viewModeScope.launch {
             try {
                 _loading.value = true
-                _posts.value = interactor.getPosts()
+                _posts.value = interactor.getAllPosts()
             } catch (exception: Exception) {
                 _error.value = exception
             } finally {

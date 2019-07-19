@@ -6,7 +6,12 @@ import io.github.wellingtoncosta.feed.infrastructure.network.api.UserApi
 import io.github.wellingtoncosta.feed.infrastructure.repository.UserRepositoryImp
 import io.github.wellingtoncosta.feed.mock.UserMock.oneUser
 import io.github.wellingtoncosta.feed.mock.UserMock.oneUserResponse
-import io.mockk.*
+import io.mockk.Runs
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.coVerifySequence
+import io.mockk.just
+import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test

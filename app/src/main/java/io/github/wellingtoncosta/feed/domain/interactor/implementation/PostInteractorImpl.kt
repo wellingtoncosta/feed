@@ -9,7 +9,7 @@ class PostInteractorImpl(
     private val repository: PostRepository
 ) : PostInteractor {
 
-    override suspend fun getPosts() = withContext(IO) {
+    override suspend fun getAllPosts() = withContext(IO) {
         repository.getAllPosts()
     }
 
