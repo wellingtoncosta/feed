@@ -1,9 +1,8 @@
-package io.github.wellingtoncosta.feed.repository
+package io.github.wellingtoncosta.feed.infrastructure.repository
 
 import io.github.wellingtoncosta.feed.domain.exception.UserNotFoundException
 import io.github.wellingtoncosta.feed.infrastructure.cache.UserCache
 import io.github.wellingtoncosta.feed.infrastructure.network.api.UserApi
-import io.github.wellingtoncosta.feed.infrastructure.repository.UserRepositoryImp
 import io.github.wellingtoncosta.feed.mock.UserMock.oneUser
 import io.github.wellingtoncosta.feed.mock.UserMock.oneUserResponse
 import io.mockk.Runs

@@ -1,4 +1,4 @@
-package io.github.wellingtoncosta.feed.viewmodel.rule
+package io.github.wellingtoncosta.feed.app.ui.viewmodel.rule
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

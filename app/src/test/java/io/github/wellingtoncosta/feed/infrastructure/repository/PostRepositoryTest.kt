@@ -1,10 +1,9 @@
-package io.github.wellingtoncosta.feed.repository
+package io.github.wellingtoncosta.feed.infrastructure.repository
 
 import io.github.wellingtoncosta.feed.domain.exception.PostNotFoundException
 import io.github.wellingtoncosta.feed.domain.repository.UserRepository
 import io.github.wellingtoncosta.feed.infrastructure.network.api.CommentApi
 import io.github.wellingtoncosta.feed.infrastructure.network.api.PostApi
-import io.github.wellingtoncosta.feed.infrastructure.repository.PostRepositoryImpl
 import io.github.wellingtoncosta.feed.mock.PostMock.fivePostsResponse
 import io.github.wellingtoncosta.feed.mock.PostMock.onePost
 import io.github.wellingtoncosta.feed.mock.PostMock.onePostResponse

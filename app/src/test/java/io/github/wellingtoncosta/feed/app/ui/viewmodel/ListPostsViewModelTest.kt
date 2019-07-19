@@ -1,4 +1,4 @@
-package io.github.wellingtoncosta.feed.viewmodel
+package io.github.wellingtoncosta.feed.app.ui.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
@@ -6,7 +6,7 @@ import io.github.wellingtoncosta.feed.app.ui.listposts.ListPostsViewModel
 import io.github.wellingtoncosta.feed.domain.entity.Post
 import io.github.wellingtoncosta.feed.domain.interactor.PostInteractor
 import io.github.wellingtoncosta.feed.mock.PostMock.fivePosts
-import io.github.wellingtoncosta.feed.viewmodel.rule.CoroutinesTestRule
+import io.github.wellingtoncosta.feed.app.ui.viewmodel.rule.CoroutinesTestRule
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest

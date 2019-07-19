@@ -1,4 +1,4 @@
-package io.github.wellingtoncosta.feed.interactor
+package io.github.wellingtoncosta.feed.domain.interactor
 
 import io.github.wellingtoncosta.feed.domain.exception.PostNotFoundException
 import io.github.wellingtoncosta.feed.domain.interactor.implementation.PostInteractorImpl
