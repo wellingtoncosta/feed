@@ -90,6 +90,12 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
         sourceCompatibility = JavaVersion.VERSION_1_8
     }
+
+    sourceSets {
+        val commonTest = "src/commonTest/java"
+        getByName("androidTest").java.srcDirs(commonTest)
+        getByName("test").java.srcDirs(commonTest)
+    }
 }
 
 kapt {
