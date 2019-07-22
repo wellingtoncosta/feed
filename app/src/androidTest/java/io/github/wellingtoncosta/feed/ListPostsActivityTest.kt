@@ -27,7 +27,6 @@ class ListPostsActivityTest {
         server.dispatcher = dispatches { path ->
             when (path) {
                 "/posts" -> 200 responses "payloads/empty-list-response.json".asJson()
-                "/users/1" -> 200 responses "payloads/user-response.json".asJson()
                 else -> 404 responses null
             }
         }
