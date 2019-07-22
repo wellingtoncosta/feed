@@ -23,7 +23,9 @@ import Dependencies.kotlinStdLib
 import Dependencies.leakCanary
 import Dependencies.materialDesign
 import Dependencies.mockk
+import Dependencies.okhttp
 import Dependencies.okhttpMockWebServer
+import Dependencies.okhttpTls
 import Dependencies.timber
 
 plugins {
@@ -135,13 +137,18 @@ dependencies {
     // Tests
     testImplementation(junit)
     testImplementation(mockk)
+    testImplementation(okhttp)
+    testImplementation(okhttpTls)
     testImplementation(androidCoreTesting)
     testImplementation(okhttpMockWebServer)
     testImplementation(kotlinCoroutinesTest)
 
+    androidTestImplementation(okhttp)
+    androidTestImplementation(okhttpTls)
     androidTestImplementation(androidTestRules)
     androidTestImplementation(androidTestRunner)
     androidTestImplementation(androidTestExtJunit)
+    androidTestImplementation(okhttpMockWebServer)
     androidTestImplementation(androidTestEspressoCore)
 
     // Timber

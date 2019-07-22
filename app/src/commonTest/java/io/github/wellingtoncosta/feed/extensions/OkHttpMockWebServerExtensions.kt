@@ -10,7 +10,7 @@ fun dispatches(body: (String) -> MockResponse) = object : Dispatcher() {
     }
 }
 
-infix fun Int.responses(jsonResponse: String?) = MockResponse()
+infix fun Int.responses(payload: String?) = MockResponse()
     .setResponseCode(this)
     .addHeader("Content-Type", "application/json;charset=utf-8")
-    .also { if(jsonResponse != null) it.setBody(jsonResponse.asJson()) }
+    .also { if(payload != null) it.setBody(payload) }

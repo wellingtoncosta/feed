@@ -35,6 +35,8 @@ object Dependencies {
 
     const val mockk = "io.mockk:mockk:${Versions.mockk}"
 
+    const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttpMockWebServer}"
+    const val okhttpTls = "com.squareup.okhttp3:okhttp-tls:${Versions.okhttpMockWebServer}"
     const val okhttpMockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.okhttpMockWebServer}"
 
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"

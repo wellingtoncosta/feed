@@ -1,7 +1,6 @@
 package io.github.wellingtoncosta.feed.infrastructure.api
 
 import com.github.kittinunf.fuel.core.FuelError
-import com.github.kittinunf.fuel.core.FuelManager
 import io.github.wellingtoncosta.feed.WebServer
 import io.github.wellingtoncosta.feed.WebServer.server
 import io.github.wellingtoncosta.feed.extensions.asJson
@@ -24,16 +23,18 @@ class UserApiTest {
     private val api = UserFuelApi(json)
 
     @Test fun `should fetch a user by id`() = runBlocking {
+        val payload = "/payloads/user-response.json".asJson()
+
         server.dispatcher = dispatches { path ->
             when (path) {
-                "/users/1" -> 200 responses "/payloads/user-response.json"
+                "/users/1" -> 200 responses payload
                 else -> 404 responses null
             }
         }
 
         val result = api.getUserById(1)
 
-        val expected = json.parse(UserResponse.serializer(), "/payloads/user-response.json".asJson())
+        val expected = json.parse(UserResponse.serializer(), payload)
 
         assertEquals(expected, result)
     }
@@ -52,13 +53,9 @@ class UserApiTest {
 
     companion object {
 
-        @BeforeClass @JvmStatic fun setup() {
-            WebServer.start { FuelManager.instance.basePath = it }
-        }
+        @BeforeClass @JvmStatic fun setup() = WebServer.start()
 
-        @AfterClass @JvmStatic fun tearDown() {
-            WebServer.shutdown()
-        }
+        @AfterClass @JvmStatic fun tearDown() = WebServer.shutdown()
 
     }
 

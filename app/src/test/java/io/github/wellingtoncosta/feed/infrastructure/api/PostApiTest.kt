@@ -1,7 +1,6 @@
 package io.github.wellingtoncosta.feed.infrastructure.api
 
 import com.github.kittinunf.fuel.core.FuelError
-import com.github.kittinunf.fuel.core.FuelManager
 import io.github.wellingtoncosta.feed.WebServer
 import io.github.wellingtoncosta.feed.WebServer.server
 import io.github.wellingtoncosta.feed.extensions.asJson
@@ -25,31 +24,35 @@ class PostApiTest {
     private val api = PostFuelApi(json)
 
     @Test fun `should fetch posts with an empty result`() = runBlocking {
+        val payload = "/payloads/empty-list-response.json".asJson()
+
         server.dispatcher = dispatches { path ->
             when (path) {
-                "/posts" -> 200 responses "/payloads/empty-list-response.json"
+                "/posts" -> 200 responses payload
                 else -> 404 responses null
             }
         }
 
         val result = api.getAllPosts()
 
-        val expected = json.parse(PostResponse.serializer().list, "/payloads/empty-list-response.json".asJson())
+        val expected = json.parse(PostResponse.serializer().list, payload)
 
         assertEquals(expected, result)
     }
 
     @Test fun `should fetch posts with five results`() = runBlocking {
+        val payload = "/payloads/five-posts-response.json".asJson()
+
         server.dispatcher = dispatches { path ->
             when (path) {
-                "/posts" -> 200 responses "/payloads/five-posts-response.json"
+                "/posts" -> 200 responses payload
                 else -> 404 responses null
             }
         }
 
         val result = api.getAllPosts()
 
-        val expected = json.parse(PostResponse.serializer().list, "/payloads/five-posts-response.json".asJson())
+        val expected = json.parse(PostResponse.serializer().list, payload)
 
         assertEquals(expected, result)
     }
@@ -67,45 +70,45 @@ class PostApiTest {
     }.let { Unit }
 
     @Test fun `should fetch a  post by id`() = runBlocking {
+        val payload = "/payloads/post-response.json".asJson()
+
         server.dispatcher = dispatches { path ->
             when (path) {
-                "/posts/1" -> 200 responses "/payloads/post-response.json"
+                "/posts/1" -> 200 responses payload
                 else -> 404 responses null
             }
         }
 
         val result = api.getPostById(1)
 
-        val expected = json.parse(PostResponse.serializer(), "/payloads/post-response.json".asJson())
+        val expected = json.parse(PostResponse.serializer(), payload)
 
         assertEquals(expected, result)
     }
 
     @Test(expected = FuelError::class)
     fun `should not fetch a  post by id`() = runBlocking {
+        val payload = "/payloads/post-response.json".asJson()
+
         server.dispatcher = dispatches { path ->
             when (path) {
-                "/posts/2" -> 200 responses "/payloads/post-response.json"
+                "/posts/2" -> 200 responses payload
                 else -> 404 responses null
             }
         }
 
         val result = api.getPostById(1)
 
-        val expected = json.parse(PostResponse.serializer(), "/payloads/post-response.json".asJson())
+        val expected = json.parse(PostResponse.serializer(), payload)
 
         assertEquals(expected, result)
     }
 
     companion object {
 
-        @BeforeClass @JvmStatic fun setup() {
-            WebServer.start { FuelManager.instance.basePath = it }
-        }
+        @BeforeClass @JvmStatic fun setup() = WebServer.start()
 
-        @AfterClass @JvmStatic fun tearDown() {
-            WebServer.shutdown()
-        }
+        @AfterClass @JvmStatic fun tearDown() = WebServer.shutdown()
 
     }
 

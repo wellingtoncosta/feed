@@ -1,6 +1,5 @@
 package io.github.wellingtoncosta.feed.infrastructure.api
 
-import com.github.kittinunf.fuel.core.FuelManager
 import io.github.wellingtoncosta.feed.WebServer
 import io.github.wellingtoncosta.feed.WebServer.server
 import io.github.wellingtoncosta.feed.extensions.asJson
@@ -24,44 +23,44 @@ class CommentApiTest {
     private val api = CommentFuelApi(json)
 
     @Test fun `should fetch comments by post with an empty result`() = runBlocking {
+        val response = "/payloads/empty-list-response.json".asJson()
+
         server.dispatcher = dispatches { path ->
             when (path) {
-                "/comments?postId=1" -> 200 responses "/payloads/empty-list-response.json"
+                "/comments?postId=1" -> 200 responses response
                 else -> 404 responses null
             }
         }
 
         val result = api.getCommentsByPostId(1)
 
-        val expected = json.parse(CommentResponse.serializer().list, "/payloads/empty-list-response.json".asJson())
+        val expected = json.parse(CommentResponse.serializer().list, response)
 
         assertEquals(expected, result)
     }
 
     @Test fun `should fetch comments by post`() = runBlocking {
+        val response = "/payloads/comments-by-post-response.json".asJson()
+
         server.dispatcher = dispatches { path ->
             when (path) {
-                "/comments?postId=1" -> 200 responses "/payloads/comments-by-post-response.json"
+                "/comments?postId=1" -> 200 responses response
                 else -> 404 responses null
             }
         }
 
         val result = api.getCommentsByPostId(1)
 
-        val expected = json.parse(CommentResponse.serializer().list, "/payloads/comments-by-post-response.json".asJson())
+        val expected = json.parse(CommentResponse.serializer().list, response)
 
         assertEquals(expected, result)
     }
 
     companion object {
 
-        @BeforeClass @JvmStatic fun setup() {
-            WebServer.start { FuelManager.instance.basePath = it }
-        }
+        @BeforeClass @JvmStatic fun setup() = WebServer.start()
 
-        @AfterClass @JvmStatic fun tearDown() {
-            WebServer.shutdown()
-        }
+        @AfterClass @JvmStatic fun tearDown() = WebServer.shutdown()
 
     }
 
