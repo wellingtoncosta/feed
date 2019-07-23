@@ -1,4 +1,4 @@
-package io.github.wellingtoncosta.feed.app.ui.listposts
+package io.github.wellingtoncosta.feed.app.ui.postdetails
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,25 +7,24 @@ import io.github.wellingtoncosta.feed.domain.entity.Post
 import io.github.wellingtoncosta.feed.domain.interactor.PostInteractor
 import kotlinx.coroutines.launch
 
-class ListPostsViewModel(
+class PostDetailsViewModel(
     private val interactor: PostInteractor
 ) : CoroutinesViewModel() {
 
     private val _loading = MutableLiveData<Boolean>()
-    private val _posts = MutableLiveData<List<Post>>()
-    private val _error = MutableLiveData<Throwable>()
+    private val _post = MutableLiveData<Post>()
+    private val _error = MutableLiveData<Throwable?>()
 
     val loading: LiveData<Boolean> get() = _loading
-    val posts: LiveData<List<Post>> get() = _posts
-    val error: LiveData<Throwable> get() = _error
+    val post: LiveData<Post> get() = _post
+    val error: LiveData<Throwable?> get() = _error
 
-    init { getAllPosts() }
-
-    fun getAllPosts() {
+    fun getPost(postId: Long) {
         viewModeScope.launch {
             try {
                 _loading.value = true
-                _posts.value = interactor.getAllPosts()
+                _post.value = interactor.getPostById(postId)
+                _error.value = null
             } catch (exception: Exception) {
                 _error.value = exception
             } finally {

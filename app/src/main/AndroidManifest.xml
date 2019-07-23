@@ -12,6 +12,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".app.ui.postdetails.PostDetailsActivity" />
         <activity android:name=".app.ui.listposts.ListPostsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

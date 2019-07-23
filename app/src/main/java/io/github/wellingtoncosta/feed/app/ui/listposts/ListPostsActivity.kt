@@ -1,14 +1,16 @@
 package io.github.wellingtoncosta.feed.app.ui.listposts
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import io.github.wellingtoncosta.feed.R
-import io.github.wellingtoncosta.feed.databinding.ActivityListPostsBinding as Binding
+import io.github.wellingtoncosta.feed.app.ui.extension.observe
+import io.github.wellingtoncosta.feed.app.ui.extension.startNewActivity
+import io.github.wellingtoncosta.feed.app.ui.postdetails.PostDetailsActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import io.github.wellingtoncosta.feed.databinding.ActivityListPostsBinding as Binding
 
 class ListPostsActivity : AppCompatActivity() {
 
@@ -20,12 +22,13 @@ class ListPostsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val activity = this
 
-        binding.apply {
-            lifecycleOwner = activity
-            viewModel = activity.viewModel
-            recyclerView.adapter = ListPostsAdapter(::goToPostDetails)
+        this.let { activity ->
+            binding.apply {
+                lifecycleOwner = activity
+                viewModel = activity.viewModel
+                recyclerView.adapter = ListPostsAdapter(::goToPostDetails)
+            }
         }
 
         observePosts()
@@ -33,36 +36,38 @@ class ListPostsActivity : AppCompatActivity() {
         observeError()
     }
 
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
-
-        viewModel.getAllPosts()
-    }
-
     private fun observePosts() {
-        viewModel.posts.observe(this, Observer { posts ->
-            // Timber.d("posts = $posts")
+        viewModel.posts.observe(this) { posts ->
+            Timber.d("posts = $posts")
 
             binding.recyclerView.adapter?.let {
                 (it as ListPostsAdapter).updatePosts(posts)
             }
-        })
+        }
     }
 
     private fun observeError() {
-        viewModel.error.observe(this, Observer {
-            Timber.e("error = $it")
+        viewModel.error.observe(this) {
+            Timber.e(it)
 
             Toast.makeText(
                 this@ListPostsActivity,
                 R.string.load_posts_error,
                 Toast.LENGTH_LONG
             ).show()
-        })
+        }
     }
 
     private fun goToPostDetails(postId: Long) {
         Timber.d("postId = $postId")
+
+        startNewActivity(PostDetailsActivity::class) {
+            putExtra(POST_ID, postId)
+        }
+    }
+
+    companion object {
+        const val POST_ID = "post-id"
     }
 
 }

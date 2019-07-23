@@ -1,6 +1,7 @@
 package io.github.wellingtoncosta.feed.app.config
 
 import io.github.wellingtoncosta.feed.app.ui.listposts.ListPostsViewModel
+import io.github.wellingtoncosta.feed.app.ui.postdetails.PostDetailsViewModel
 import io.github.wellingtoncosta.feed.domain.interactor.PostInteractor
 import io.github.wellingtoncosta.feed.domain.interactor.implementation.PostInteractorImpl
 import io.github.wellingtoncosta.feed.domain.repository.PostRepository
@@ -43,4 +44,5 @@ val interactorModule = module {
 
 val viewModelModule = module {
     viewModel { ListPostsViewModel(get()) }
+    viewModel { PostDetailsViewModel(get()) }
 }
