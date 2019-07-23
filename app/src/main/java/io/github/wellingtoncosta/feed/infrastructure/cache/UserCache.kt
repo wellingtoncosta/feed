@@ -8,4 +8,6 @@ interface UserCache {
 
     suspend fun put(user: User)
 
+    suspend fun clearAll()
+
 }

@@ -7,6 +7,7 @@ import io.github.wellingtoncosta.feed.app.ui.viewmodel.ListPostsViewModelTest
 import io.github.wellingtoncosta.feed.infrastructure.api.CommentApiTest
 import io.github.wellingtoncosta.feed.infrastructure.api.PostApiTest
 import io.github.wellingtoncosta.feed.infrastructure.api.UserApiTest
+import io.github.wellingtoncosta.feed.infrastructure.cache.UserCacheTest
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
 import org.junit.runners.Suite.SuiteClasses
@@ -19,6 +20,7 @@ import org.junit.runners.Suite.SuiteClasses
     UserRepositoryTest::class,
     PostApiTest::class,
     CommentApiTest::class,
-    UserApiTest::class
+    UserApiTest::class,
+    UserCacheTest::class
 )
 class TestSuite

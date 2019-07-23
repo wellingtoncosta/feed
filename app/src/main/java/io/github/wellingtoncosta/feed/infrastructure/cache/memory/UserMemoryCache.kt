@@ -12,4 +12,6 @@ class UserMemoryCache : UserCache {
 
     override suspend fun put(user: User) = cache.append(user.id, user)
 
+    override suspend fun clearAll() = cache.clear()
+
 }

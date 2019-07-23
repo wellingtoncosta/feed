@@ -35,8 +35,8 @@ object Dependencies {
 
     const val mockk = "io.mockk:mockk:${Versions.mockk}"
 
-    const val okhttpTls = "com.squareup.okhttp3:okhttp-tls:${Versions.okhttpMockWebServer}"
-    const val okhttpMockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.okhttpMockWebServer}"
+    const val okhttpTls = "com.squareup.okhttp3:okhttp-tls:${Versions.okhttp}"
+    const val okhttpMockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.okhttp}"
 
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
 }
@@ -62,6 +62,6 @@ object Versions {
     internal const val leakCanary = "2.0-alpha-3"
     internal const val materialDesign = "1.0.0"
     internal const val mockk = "1.9.3"
-    internal const val okhttpMockWebServer = "4.0.1"
+    internal const val okhttp = "4.0.1"
     internal const val timber = "4.7.1"
 }
