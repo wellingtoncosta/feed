@@ -19,7 +19,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class ListPostsActivityTest {
 
-    @Rule @JvmField val activityRule = ActivityTestRule(ListPostsActivity::class.java, true, true)
+    @Rule @JvmField val activityRule = ActivityTestRule(ListPostsActivity::class.java, true, false)
 
     @Test fun shouldListWithEmptyResponse() {
         listPosts(activityRule) {
