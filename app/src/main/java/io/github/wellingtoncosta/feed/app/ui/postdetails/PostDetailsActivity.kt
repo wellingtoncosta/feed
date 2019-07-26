@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import io.github.wellingtoncosta.feed.R
 import io.github.wellingtoncosta.feed.app.ui.extension.observe
 import io.github.wellingtoncosta.feed.app.ui.listposts.ListPostsActivity.Companion.POST_ID
@@ -32,6 +34,14 @@ class PostDetailsActivity : AppCompatActivity() {
             binding.apply {
                 lifecycleOwner = activity
                 viewModel = activity.viewModel
+                commentsRecyclerView.apply {
+                    addItemDecoration(
+                        DividerItemDecoration(
+                            context,
+                            (layoutManager as LinearLayoutManager).orientation
+                        )
+                    )
+                }
             }
         }
 
@@ -59,6 +69,7 @@ class PostDetailsActivity : AppCompatActivity() {
     private fun observePost() {
         viewModel.post.observe(this) { post ->
             Timber.d("post = $post")
+            binding.commentsRecyclerView.adapter = ListCommentssAdapter(post.comments)
         }
     }
 
