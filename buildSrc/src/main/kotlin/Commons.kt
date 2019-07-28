@@ -18,6 +18,7 @@ object Dependencies {
 
     const val junit = "junit:junit:${Versions.junit}"
 
+    const val koinTest = "org.koin:koin-test:${Versions.koin}"
     const val koinAndroidScope = "org.koin:koin-androidx-scope:${Versions.koin}"
     const val koinAndroidViewModel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
 

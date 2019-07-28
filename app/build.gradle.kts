@@ -15,6 +15,7 @@ import Dependencies.fuelKotlinSerialization
 import Dependencies.junit
 import Dependencies.koinAndroidScope
 import Dependencies.koinAndroidViewModel
+import Dependencies.koinTest
 import Dependencies.kotlinCoroutinesAndroid
 import Dependencies.kotlinCoroutinesCore
 import Dependencies.kotlinCoroutinesTest
@@ -43,7 +44,7 @@ android {
         targetSdkVersion(29)
         versionCode = 1
         versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "io.github.wellingtoncosta.feed.FeedTestAppRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -141,6 +142,7 @@ dependencies {
     testImplementation(okhttpMockWebServer)
     testImplementation(kotlinCoroutinesTest)
 
+    androidTestImplementation(koinTest)
     androidTestImplementation(okhttpTls)
     androidTestImplementation(androidTestRules)
     androidTestImplementation(androidTestRunner)
