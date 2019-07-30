@@ -1,7 +1,7 @@
 package io.github.wellingtoncosta.feed.infrastructure.api
 
 import com.github.kittinunf.fuel.core.FuelError
-import io.github.wellingtoncosta.feed.extensions.asJson
+import io.github.wellingtoncosta.feed.asJson
 import io.github.wellingtoncosta.feed.extensions.dispatches
 import io.github.wellingtoncosta.feed.extensions.responses
 import io.github.wellingtoncosta.feed.infrastructure.network.api.fuel.UserFuelApi

@@ -25,4 +25,4 @@ import org.junit.runners.Suite.SuiteClasses
     UserApiTest::class,
     UserCacheTest::class
 )
-class TestSuite
+class UnitTestSuite
