@@ -18,8 +18,10 @@ class PostFuelApi(
 
     override suspend fun getPostById(postId: Long) =
         Fuel.get("/posts/$postId").awaitStringResponse().run {
-            if(second.statusCode != HTTP_200) null
-            else json.parse(PostResponse.serializer(), third)
+            when(second.statusCode) {
+                HTTP_200, HTTP_304 -> json.parse(PostResponse.serializer(), third)
+                else -> null
+            }
         }
 
 }
