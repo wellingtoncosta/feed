@@ -1,16 +1,16 @@
 package io.github.wellingtoncosta.feed.infrastructure.api
 
-import io.github.wellingtoncosta.feed.WebServer
-import io.github.wellingtoncosta.feed.WebServer.server
 import io.github.wellingtoncosta.feed.extensions.asJson
 import io.github.wellingtoncosta.feed.extensions.dispatches
 import io.github.wellingtoncosta.feed.extensions.responses
 import io.github.wellingtoncosta.feed.infrastructure.network.api.fuel.CommentFuelApi
 import io.github.wellingtoncosta.feed.infrastructure.network.entity.CommentResponse
+import io.github.wellingtoncosta.feed.startHttpServer
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 import kotlinx.serialization.list
+import okhttp3.mockwebserver.MockWebServer
 import org.junit.AfterClass
 import org.junit.Assert.assertEquals
 import org.junit.BeforeClass
@@ -58,9 +58,15 @@ class CommentApiTest {
 
     companion object {
 
-        @BeforeClass @JvmStatic fun setup() = WebServer.start()
+        private lateinit var server: MockWebServer
 
-        @AfterClass @JvmStatic fun tearDown() = WebServer.shutdown()
+        @BeforeClass @JvmStatic fun beforeAll() {
+            server = startHttpServer()
+        }
+
+        @AfterClass @JvmStatic fun afterAll() {
+            server.shutdown()
+        }
 
     }
 
