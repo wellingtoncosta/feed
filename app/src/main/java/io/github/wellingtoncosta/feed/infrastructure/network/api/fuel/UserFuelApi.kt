@@ -12,8 +12,10 @@ class UserFuelApi(
 
     override suspend fun getUserById(userId: Long) =
         Fuel.get("/users/$userId").awaitStringResponse().run {
-            if(second.statusCode != HTTP_200) null
-            else json.parse(UserResponse.serializer(), third)
+            when(second.statusCode) {
+                HTTP_200, HTTP_304 -> json.parse(UserResponse.serializer(), third)
+                else -> null
+            }
         }
 
 }
