@@ -4,6 +4,10 @@ import Dependencies.androidCore
 import Dependencies.androidCoreTesting
 import Dependencies.androidDataBindingCompiler
 import Dependencies.androidLiveData
+import Dependencies.androidTestEspressoCore
+import Dependencies.androidTestExtJunit
+import Dependencies.androidTestRules
+import Dependencies.androidTestRunner
 import Dependencies.androidViewModel
 import Dependencies.fuelCore
 import Dependencies.fuelCoroutines
@@ -11,6 +15,7 @@ import Dependencies.fuelKotlinSerialization
 import Dependencies.junit
 import Dependencies.koinAndroidScope
 import Dependencies.koinAndroidViewModel
+import Dependencies.koinTest
 import Dependencies.kotlinCoroutinesAndroid
 import Dependencies.kotlinCoroutinesCore
 import Dependencies.kotlinCoroutinesTest
@@ -19,6 +24,8 @@ import Dependencies.kotlinStdLib
 import Dependencies.leakCanary
 import Dependencies.materialDesign
 import Dependencies.mockk
+import Dependencies.okhttpMockWebServer
+import Dependencies.okhttpTls
 import Dependencies.timber
 
 plugins {
@@ -29,14 +36,15 @@ plugins {
 }
 
 android {
-    compileSdkVersion(28)
+    compileSdkVersion(29)
 
     defaultConfig {
         applicationId = "io.github.wellingtoncosta.feed"
         minSdkVersion(16)
-        targetSdkVersion(28)
+        targetSdkVersion(29)
         versionCode = 1
         versionName = "1.0"
+        testInstrumentationRunner = "io.github.wellingtoncosta.feed.app.FeedTestAppRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -81,8 +89,14 @@ android {
     }
 
     compileOptions {
-        targetCompatibility = JavaVersion.VERSION_1_7
-        sourceCompatibility = JavaVersion.VERSION_1_7
+        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        val commonTest = "src/commonTest/java"
+        getByName("androidTest").java.srcDirs(commonTest)
+        getByName("test").java.srcDirs(commonTest)
     }
 }
 
@@ -98,6 +112,7 @@ dependencies {
     kapt(androidDataBindingCompiler)
     implementation(androidLiveData)
     implementation(androidViewModel)
+    implementation(androidTestEspressoCore)
 
     // Fuel
     implementation(fuelCore)
@@ -121,10 +136,19 @@ dependencies {
     debugImplementation(leakCanary)
 
     // Tests
-    testImplementation(androidCoreTesting)
     testImplementation(junit)
     testImplementation(mockk)
+    testImplementation(okhttpTls)
+    testImplementation(androidCoreTesting)
+    testImplementation(okhttpMockWebServer)
     testImplementation(kotlinCoroutinesTest)
+
+    androidTestImplementation(koinTest)
+    androidTestImplementation(okhttpTls)
+    androidTestImplementation(androidTestRules)
+    androidTestImplementation(androidTestRunner)
+    androidTestImplementation(androidTestExtJunit)
+    androidTestImplementation(okhttpMockWebServer)
 
     // Timber
     implementation(timber)
