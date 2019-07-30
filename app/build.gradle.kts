@@ -112,6 +112,7 @@ dependencies {
     kapt(androidDataBindingCompiler)
     implementation(androidLiveData)
     implementation(androidViewModel)
+    implementation(androidTestEspressoCore)
 
     // Fuel
     implementation(fuelCore)
@@ -148,7 +149,6 @@ dependencies {
     androidTestImplementation(androidTestRunner)
     androidTestImplementation(androidTestExtJunit)
     androidTestImplementation(okhttpMockWebServer)
-    androidTestImplementation(androidTestEspressoCore)
 
     // Timber
     implementation(timber)

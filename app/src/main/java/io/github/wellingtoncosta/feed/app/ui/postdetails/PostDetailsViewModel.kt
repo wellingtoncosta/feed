@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import io.github.wellingtoncosta.feed.app.ui.CoroutinesViewModel
 import io.github.wellingtoncosta.feed.domain.entity.Post
 import io.github.wellingtoncosta.feed.domain.interactor.PostInteractor
-import kotlinx.coroutines.launch
 
 class PostDetailsViewModel(
     private val interactor: PostInteractor
@@ -20,7 +19,7 @@ class PostDetailsViewModel(
     val error: LiveData<Throwable?> get() = _error
 
     fun getPost(postId: Long) {
-        viewModeScope.launch {
+        launch {
             try {
                 _loading.value = true
                 _post.value = interactor.getPostById(postId)

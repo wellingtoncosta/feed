@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import io.github.wellingtoncosta.feed.app.ui.CoroutinesViewModel
 import io.github.wellingtoncosta.feed.domain.entity.Post
 import io.github.wellingtoncosta.feed.domain.interactor.PostInteractor
-import kotlinx.coroutines.launch
 
 class ListPostsViewModel(
     private val interactor: PostInteractor
@@ -22,7 +21,7 @@ class ListPostsViewModel(
     init { getAllPosts() }
 
     fun getAllPosts() {
-        viewModeScope.launch {
+        launch {
             try {
                 _loading.value = true
                 _posts.value = interactor.getAllPosts()

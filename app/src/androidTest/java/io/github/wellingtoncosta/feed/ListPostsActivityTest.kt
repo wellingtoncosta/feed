@@ -1,26 +1,22 @@
 package io.github.wellingtoncosta.feed
 
 import androidx.test.espresso.IdlingRegistry
-import androidx.test.espresso.idling.CountingIdlingResource
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
-import io.github.wellingtoncosta.feed.app.IDLING_LIST_POSTS
 import io.github.wellingtoncosta.feed.app.startHttpsServer
-import io.github.wellingtoncosta.feed.robot.listPosts
+import io.github.wellingtoncosta.feed.app.ui.CoroutinesIdlingResource
 import io.github.wellingtoncosta.feed.app.ui.listposts.ListPostsActivity
 import io.github.wellingtoncosta.feed.extension.asJson
 import io.github.wellingtoncosta.feed.extensions.dispatches
 import io.github.wellingtoncosta.feed.extensions.responses
+import io.github.wellingtoncosta.feed.robot.listPosts
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.AfterClass
 import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.koin.core.qualifier.named
-import org.koin.test.KoinTest
-import org.koin.test.inject
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
@@ -29,6 +25,7 @@ class ListPostsActivityTest {
     @Rule @JvmField val activityRule = ActivityTestRule(ListPostsActivity::class.java, true, false)
 
     @Test fun shouldListWithEmptyResponse() {
+
         listPosts(activityRule) {
 
             dispatchEmptyResponse()
@@ -38,9 +35,11 @@ class ListPostsActivityTest {
             assertNoPosts()
 
         }
+
     }
 
     @Test fun shouldListWithNonEmptyResponse() {
+
         listPosts(activityRule) {
 
             dispatchFivePostsResponse()
@@ -50,9 +49,11 @@ class ListPostsActivityTest {
             assertFivePosts()
 
         }
+
     }
 
     @Test fun shouldDisplayErrorMessage() {
+
         listPosts(activityRule) {
 
             dispatchInternalServerError()
@@ -62,6 +63,7 @@ class ListPostsActivityTest {
             assertDisplayErrorMessage()
 
         }
+
     }
 
     private fun dispatchEmptyResponse() {
@@ -92,22 +94,20 @@ class ListPostsActivityTest {
         }
     }
 
-    companion object : KoinTest {
-
-        private val idlingResource by inject<CountingIdlingResource>(named(IDLING_LIST_POSTS))
+    companion object {
 
         private lateinit var server: MockWebServer
 
         @BeforeClass @JvmStatic fun beforeAll() {
             server = startHttpsServer()
 
-            IdlingRegistry.getInstance().register(idlingResource)
+            IdlingRegistry.getInstance().register(CoroutinesIdlingResource.idlingResource)
         }
 
         @AfterClass @JvmStatic fun afterAll() {
             server.shutdown()
 
-            IdlingRegistry.getInstance().unregister(idlingResource)
+            IdlingRegistry.getInstance().unregister(CoroutinesIdlingResource.idlingResource)
         }
 
     }
