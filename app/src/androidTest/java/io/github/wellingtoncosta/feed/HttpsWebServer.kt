@@ -1,4 +1,4 @@
-package io.github.wellingtoncosta.feed.app
+package io.github.wellingtoncosta.feed
 
 import com.github.kittinunf.fuel.core.FuelManager
 import okhttp3.mockwebserver.MockWebServer

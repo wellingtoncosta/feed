@@ -4,7 +4,6 @@ import androidx.test.espresso.IdlingRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
-import io.github.wellingtoncosta.feed.app.startHttpsServer
 import io.github.wellingtoncosta.feed.app.ui.CoroutinesIdlingResource
 import io.github.wellingtoncosta.feed.app.ui.postdetails.PostDetailsActivity
 import io.github.wellingtoncosta.feed.extension.asJson
