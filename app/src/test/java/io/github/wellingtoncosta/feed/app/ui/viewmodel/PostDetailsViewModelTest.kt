@@ -1,10 +1,10 @@
 package io.github.wellingtoncosta.feed.app.ui.viewmodel
 
 import androidx.lifecycle.Observer
-import io.github.wellingtoncosta.feed.app.ui.listposts.ListPostsViewModel
+import io.github.wellingtoncosta.feed.app.ui.postdetails.PostDetailsViewModel
 import io.github.wellingtoncosta.feed.domain.entity.Post
 import io.github.wellingtoncosta.feed.domain.interactor.PostInteractor
-import io.github.wellingtoncosta.feed.mock.PostMock.fivePosts
+import io.github.wellingtoncosta.feed.mock.PostMock.onePost
 import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -15,71 +15,71 @@ import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Test
 
-class ListPostsViewModelTest : BaseViewModelTest() {
+class PostDetailsViewModelTest : BaseViewModelTest() {
 
     private val interactor = mockk<PostInteractor>()
 
     private val loadingObserver = mockk<Observer<Boolean>>()
 
-    private val postsObserver = mockk<Observer<List<Post>>>()
+    private val postObserver = mockk<Observer<Post>>()
 
-    private val errorObserver = mockk<Observer<Throwable>>()
+    private val errorObserver = mockk<Observer<Throwable?>>()
 
-    private val viewModel = ListPostsViewModel(interactor = interactor)
+    private val viewModel = PostDetailsViewModel(interactor)
 
     @ExperimentalCoroutinesApi
     @Test fun `no interactions`() = runBlockingTest {
-        every { postsObserver.onChanged(any()) } just Runs
+        every { postObserver.onChanged(any()) } just Runs
 
-        viewModel.posts.observeForever(postsObserver)
+        viewModel.post.observeForever(postObserver)
 
-        coVerify(exactly = 0) { interactor.getAllPosts() }
+        coVerify(exactly = 0) { interactor.getPostById(1) }
     }
 
     @ExperimentalCoroutinesApi
-    @Test fun `get posts with success`() = runBlockingTest {
-        coEvery { interactor.getAllPosts() } returns fivePosts
+    @Test fun `get post by id with success`() = runBlockingTest {
+        coEvery { interactor.getPostById(any()) } returns onePost
 
         every { loadingObserver.onChanged(any()) } just Runs
 
-        every { postsObserver.onChanged(any()) } just Runs
+        every { postObserver.onChanged(any()) } just Runs
 
         viewModel.loading.observeForever(loadingObserver)
 
-        viewModel.posts.observeForever(postsObserver)
+        viewModel.post.observeForever(postObserver)
 
-        viewModel.getAllPosts()
+        viewModel.getPost(1)
 
-        coVerify { interactor.getAllPosts() }
+        coVerify { interactor.getPostById(1) }
 
         verify(exactly = 2) { loadingObserver.onChanged(any()) }
 
-        verify { postsObserver.onChanged(any()) }
+        verify { postObserver.onChanged(any()) }
     }
 
     @ExperimentalCoroutinesApi
     @Test fun `throws exception when get posts`() = runBlockingTest {
-        coEvery { interactor.getAllPosts() } throws Exception()
+        coEvery { interactor.getPostById(any()) } throws Exception()
 
         every { loadingObserver.onChanged(any()) } just Runs
 
-        every { postsObserver.onChanged(any()) } just Runs
+        every { postObserver.onChanged(any()) } just Runs
 
         every { errorObserver.onChanged(any()) } just Runs
 
         viewModel.loading.observeForever(loadingObserver)
 
-        viewModel.posts.observeForever(postsObserver)
+        viewModel.post.observeForever(postObserver)
 
         viewModel.error.observeForever(errorObserver)
 
-        viewModel.getAllPosts()
+        viewModel.getPost(1)
 
-        coVerify { interactor.getAllPosts() }
+        coVerify { interactor.getPostById(1) }
 
         verify(exactly = 2) { loadingObserver.onChanged(any()) }
 
-        verify(exactly = 0) { postsObserver.onChanged(any()) }
+        verify(exactly = 0) { postObserver.onChanged(any()) }
 
         verify { errorObserver.onChanged(any()) }
     }
