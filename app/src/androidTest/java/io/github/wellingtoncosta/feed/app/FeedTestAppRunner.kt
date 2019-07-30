@@ -1,4 +1,4 @@
-package io.github.wellingtoncosta.feed
+package io.github.wellingtoncosta.feed.app
 
 import android.app.Application
 import android.content.Context
