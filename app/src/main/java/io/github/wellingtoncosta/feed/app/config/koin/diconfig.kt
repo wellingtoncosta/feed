@@ -1,4 +1,4 @@
-package io.github.wellingtoncosta.feed.app.config
+package io.github.wellingtoncosta.feed.app.config.koin
 
 import io.github.wellingtoncosta.feed.app.ui.listposts.ListPostsViewModel
 import io.github.wellingtoncosta.feed.app.ui.postdetails.PostDetailsViewModel

@@ -4,11 +4,11 @@ import android.app.Application
 import com.github.kittinunf.fuel.core.FuelManager
 import io.github.wellingtoncosta.feed.BuildConfig.API_URL
 import io.github.wellingtoncosta.feed.BuildConfig.DEBUG
-import io.github.wellingtoncosta.feed.app.config.cacheModule
-import io.github.wellingtoncosta.feed.app.config.interactorModule
-import io.github.wellingtoncosta.feed.app.config.networkModule
-import io.github.wellingtoncosta.feed.app.config.repositoryModule
-import io.github.wellingtoncosta.feed.app.config.viewModelModule
+import io.github.wellingtoncosta.feed.app.config.koin.cacheModule
+import io.github.wellingtoncosta.feed.app.config.koin.interactorModule
+import io.github.wellingtoncosta.feed.app.config.koin.networkModule
+import io.github.wellingtoncosta.feed.app.config.koin.repositoryModule
+import io.github.wellingtoncosta.feed.app.config.koin.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
