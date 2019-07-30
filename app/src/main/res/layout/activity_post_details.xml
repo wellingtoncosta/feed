@@ -43,7 +43,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/appbar"
-                android:visibility="@{safeUnbox(viewModel.loading) ? View.GONE : View.VISIBLE}">
+                android:visibility="@{safeUnbox(viewModel.loading) || viewModel.error != null ? View.GONE : View.VISIBLE}">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
