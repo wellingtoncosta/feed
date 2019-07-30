@@ -5,13 +5,13 @@ import androidx.test.espresso.idling.CountingIdlingResource
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
-import io.github.wellingtoncosta.feed.app.IDLING_LIST_POSTS
+import io.github.wellingtoncosta.feed.app.IDLING_POST_DETAILS
 import io.github.wellingtoncosta.feed.app.startHttpsServer
-import io.github.wellingtoncosta.feed.robot.listPosts
-import io.github.wellingtoncosta.feed.app.ui.listposts.ListPostsActivity
+import io.github.wellingtoncosta.feed.app.ui.postdetails.PostDetailsActivity
 import io.github.wellingtoncosta.feed.extension.asJson
 import io.github.wellingtoncosta.feed.extensions.dispatches
 import io.github.wellingtoncosta.feed.extensions.responses
+import io.github.wellingtoncosta.feed.robot.postDetails
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.AfterClass
 import org.junit.BeforeClass
@@ -24,69 +24,53 @@ import org.koin.test.inject
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class ListPostsActivityTest {
+class PostDetailsActivityTest {
 
-    @Rule @JvmField val activityRule = ActivityTestRule(ListPostsActivity::class.java, true, false)
+    private val idlingResource by inject<CountingIdlingResource>(named(IDLING_POST_DETAILS))
 
-    @Test fun shouldListWithEmptyResponse() {
-        listPosts(activityRule) {
+    @Rule @JvmField val activityRule = ActivityTestRule(PostDetailsActivity::class.java)
 
-            dispatchEmptyResponse()
+    @Test fun shouldShowPostDetailsWithComments() {
+
+        postDetails(activityRule) {
+
+            dispatchPostWithCommentsResponse()
 
             launch()
 
-            assertNoPosts()
+            assertPostWithComments()
+        }
+    }
+
+    @Test fun shouldShowPostDetailsWithNoComments() {
+        postDetails(activityRule) {
+
+            dispatchPostWithNoCommentsResponse()
+
+            launch()
+
+            assertPostWithNoComments()
 
         }
     }
 
-    @Test fun shouldListWithNonEmptyResponse() {
-        listPosts(activityRule) {
-
-            dispatchFivePostsResponse()
-
-            launch()
-
-            assertFivePosts()
-
-        }
-    }
-
-    @Test fun shouldDisplayErrorMessage() {
-        listPosts(activityRule) {
-
-            dispatchInternalServerError()
-
-            launch()
-
-            assertDisplayErrorMessage()
-
-        }
-    }
-
-    private fun dispatchEmptyResponse() {
+    private fun dispatchPostWithCommentsResponse() {
         server.dispatcher = dispatches { path ->
             when (path) {
-                "/posts" -> 200 responses "payloads/empty-list-response.json".asJson()
-                else -> 404 responses null
-            }
-        }
-    }
-
-    private fun dispatchFivePostsResponse() {
-        server.dispatcher = dispatches { path ->
-            when (path) {
-                "/posts" -> 200 responses "payloads/five-posts-response.json".asJson()
+                "/posts/1" -> 200 responses "payloads/post-response.json".asJson()
                 "/users/1" -> 200 responses "payloads/user-response.json".asJson()
+                "/comments?postId=1" -> 200 responses "payloads/comments-by-post-response.json".asJson()
                 else -> 404 responses null
             }
         }
     }
 
-    private fun dispatchInternalServerError() {
+    private fun dispatchPostWithNoCommentsResponse() {
         server.dispatcher = dispatches { path ->
             when (path) {
-                "/posts" -> 500 responses "payloads/empty-list-response.json".asJson()
+                "/posts/1" -> 200 responses "payloads/post-response.json".asJson()
+                "/users/1" -> 200 responses "payloads/user-response.json".asJson()
+                "/comments?postId=1" -> 200 responses "payloads/empty-list-response.json".asJson()
                 else -> 404 responses null
             }
         }
@@ -94,7 +78,7 @@ class ListPostsActivityTest {
 
     companion object : KoinTest {
 
-        private val idlingResource by inject<CountingIdlingResource>(named(IDLING_LIST_POSTS))
+        private val idlingResource by inject<CountingIdlingResource>(named(IDLING_POST_DETAILS))
 
         private lateinit var server: MockWebServer
 

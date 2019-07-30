@@ -1,7 +1,6 @@
 package io.github.wellingtoncosta.feed.app
 
 import androidx.test.espresso.idling.CountingIdlingResource
-import com.github.kittinunf.fuel.core.FuelManager
 import io.github.wellingtoncosta.feed.app.config.koin.*
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -17,27 +16,7 @@ class FeedTestApp : FeedApp() {
         testModule
     )
 
-    override fun onCreate() {
-        super.onCreate()
-
-        /*with(FuelManager.instance) {
-            addRequestInterceptor(IdlingRequestInterceptor)
-            addResponseInterceptor(IdlingResponseInterceptor)
-        }*/
-
-    }
-
 }
-
-/*private val viewModelModule = module {
-    viewModel<ListPostsViewModel> {
-        IdlingListPostsViewModel(get(), get(named(IDLING_LIST_POSTS)))
-    }
-
-    viewModel<PostDetailsViewModel> {
-        IdlingPostDetailsViewModel(get(), get(named(IDLING_POST_DETAILS)))
-    }
-}*/
 
 const val IDLING_LIST_POSTS = "IDLING_LIST_POSTS"
 const val IDLING_POST_DETAILS = "IDLING_POST_DETAILS"
